@@ -1,6 +1,6 @@
 {
   "name": "broken-node",
-  "version": "1.10.0",
+  "version": "1.2.0",
   "description": "Hello Kubernetes!",
   "author": "Paul Bouwer, Arran France",
   "license": "MIT",

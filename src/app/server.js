@@ -30,10 +30,15 @@ async function main() {
 
   // Configuration
 
-  var port = process.env.PORT || 8080;
-  var message = process.env.MESSAGE || "Hello world!";
+  var port = process.env.PORT || getRandomInt(3000, 9000);
+  var message = process.env.MESSAGE;
 
-  const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+  if (!message) {
+    logger.error("No MESSAGE env variable set");
+    process.exit(1);
+  }
+  const delay = (seconds) =>
+    new Promise((resolve) => setTimeout(resolve, seconds * 1000));
   logger.info("Starting up container. This may take up to 15 seconds");
   await delay(getRandomInt(5, 15));
 
@@ -108,8 +113,10 @@ async function main() {
     logger.info("Listening on: http://%s:%s", podName, port);
   });
 
+  logger.info("Starting health check on /healthy");
   logger.info("Finishing up setup. This may take up to 10 seconds");
   await delay(getRandomInt(2, 10));
+
   isHealthy = true;
 }
 
